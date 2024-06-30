@@ -11,7 +11,7 @@ const ImageGenerator = () => {
     image: null,
     prompt_strength: 0.85,
     steps: 28,
-    output_format: 'webp',
+    output_format: 'png',
     output_quality: 90,
     seed: '',
     negative_prompt: ''
@@ -192,7 +192,7 @@ const ImageGenerator = () => {
             value={formData.output_format}
             onChange={handleInputChange}
           >
-            {['webp', 'jpg', 'png'].map(format => (
+            {['png', 'jpg', 'webp'].map(format => (
               <option key={format} value={format}>{format.toUpperCase()}</option>
             ))}
           </select>
