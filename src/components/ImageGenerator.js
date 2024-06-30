@@ -199,22 +199,6 @@ const ImageGenerator = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block mb-2 font-semibold">
-            Negative Prompt
-            <Tooltip title="Negative prompts do not really work in SD3. Using a negative prompt will change your output in unpredictable ways.">
-              <span className="inline-block w-4 h-4 bg-gray-200 rounded-full text-xs text-center leading-4 cursor-help">i</span>
-            </Tooltip>
-          </label>
-          <textarea
-            name="negative_prompt"
-            className="w-full p-2 border border-gray-300 rounded"
-            value={formData.negative_prompt}
-            onChange={handleInputChange}
-            rows={2}git checkout maingit push origin main
-          />
-        </div>
-
-        <div className="mb-4">
           <button 
             className="w-full flex justify-between items-center p-2 bg-gray-100 rounded"
             onClick={() => setShowAdvanced(!showAdvanced)}
@@ -226,7 +210,116 @@ const ImageGenerator = () => {
 
         {showAdvanced && (
           <div className="mb-4 p-4 bg-gray-50 rounded">
-            {/* ... (keep advanced settings fields) */}
+            <div className="mb-4">
+              <label className="block mb-2 font-semibold">
+                Negative Prompt
+                <Tooltip title="Negative prompts do not really work in SD3. Using a negative prompt will change your output in unpredictable ways.">
+                  <span className="inline-block w-4 h-4 bg-gray-200 rounded-full text-xs text-center leading-4 cursor-help">i</span>
+                </Tooltip>
+              </label>
+              <textarea
+                name="negative_prompt"
+                className="w-full p-2 border border-gray-300 rounded"
+                value={formData.negative_prompt}
+                onChange={handleInputChange}
+                rows={2}
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block mb-2 font-semibold">
+                Steps
+                <Tooltip title="Number of steps to run the sampler for.">
+                  <span className="inline-block w-4 h-4 bg-gray-200 rounded-full text-xs text-center leading-4 cursor-help">i</span>
+                </Tooltip>
+              </label>
+              <input
+                type="number"
+                name="steps"
+                min="1"
+                max="28"
+                value={formData.steps}
+                onChange={handleInputChange}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block mb-2 font-semibold">
+                Seed
+                <Tooltip title="Set a seed for reproducibility. Random by default.">
+                  <span className="inline-block w-4 h-4 bg-gray-200 rounded-full text-xs text-center leading-4 cursor-help">i</span>
+                </Tooltip>
+              </label>
+              <input
+                type="number"
+                name="seed"
+                value={formData.seed}
+                onChange={handleInputChange}
+                placeholder="Random"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block mb-2 font-semibold">
+                Prompt Strength
+                <Tooltip title="Prompt strength (or denoising strength) when using image to image. 1.0 corresponds to full destruction of information in image.">
+                  <span className="inline-block w-4 h-4 bg-gray-200 rounded-full text-xs text-center leading-4 cursor-help">i</span>
+                </Tooltip>
+              </label>
+              <input
+                type="range"
+                name="prompt_strength"
+                min="0"
+                max="1"
+                step="0.01"
+                value={formData.prompt_strength}
+                onChange={handleInputChange}
+                className="w-full"
+              />
+              <span>{formData.prompt_strength}</span>
+            </div>
+
+            <div className="mb-4">
+              <label className="block mb-2 font-semibold">
+                <Sliders className="inline mr-2" size={18} />
+                Guidance Scale (CFG)
+                <Tooltip title="The guidance scale tells the model how similar the output should be to the prompt.">
+                  <span className="inline-block w-4 h-4 bg-gray-200 rounded-full text-xs text-center leading-4 cursor-help">i</span>
+                </Tooltip>
+              </label>
+              <input
+                type="range"
+                name="cfg"
+                min="0"
+                max="20"
+                step="0.1"
+                value={formData.cfg}
+                onChange={handleInputChange}
+                className="w-full"
+              />
+              <span>{formData.cfg}</span>
+            </div>
+
+            <div className="mb-4">
+              <label className="block mb-2 font-semibold">
+                Output Quality
+                <Tooltip title="Quality of the output images, from 0 to 100. 100 is best quality, 0 is lowest quality.">
+                  <span className="inline-block w-4 h-4 bg-gray-200 rounded-full text-xs text-center leading-4 cursor-help">i</span>
+                </Tooltip>
+              </label>
+              <input
+                type="range"
+                name="output_quality"
+                min="0"
+                max="100"
+                value={formData.output_quality}
+                onChange={handleInputChange}
+                className="w-full"
+              />
+              <span>{formData.output_quality}</span>
+            </div>
           </div>
         )}
         
