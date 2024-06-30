@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Replicate from "replicate";
 import { Settings, Image as ImageIcon, Sliders, Download, Upload, ChevronDown, ChevronUp } from 'lucide-react';
+
+const API_URL = '/generate-image';
 
 const ImageGenerator = () => {
   const [formData, setFormData] = useState({
@@ -65,7 +66,7 @@ const ImageGenerator = () => {
     Object.keys(input).forEach(key => input[key] === undefined && delete input[key]);
   
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/generate-image`, {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

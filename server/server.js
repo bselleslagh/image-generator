@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const Replicate = require('replicate');
 const dotenv = require('dotenv');
 
@@ -20,6 +21,9 @@ if (!REPLICATE_API_TOKEN) {
 const replicate = new Replicate({
   auth: REPLICATE_API_TOKEN,
 });
+
+// Serve static files from the React build
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 app.post('/generate-image', async (req, res) => {
   try {
@@ -42,6 +46,11 @@ app.post('/generate-image', async (req, res) => {
     console.error('Error details:', error.response ? error.response.data : error.message);
     res.status(500).json({ error: error.message, details: error.response ? error.response.data : 'No additional details' });
   }
+});
+
+// Handle any requests that don't match the above
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5001;
